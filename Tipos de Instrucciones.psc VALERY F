@@ -1,0 +1,17 @@
+Algoritmo TiposDeInstruciones
+	// Instruciones de Declaraciones 
+	Definir x, c, resultado Como Entero
+	
+	// Instrucioines de Entrada 
+	Leer x
+	
+	// Instruccion de Asignacion 
+	c <- 10
+	resultado <- x+ c
+	
+	// Instruccion selectiva 
+	si resultado > 15 Entonces
+		// Intruccion de salida
+	Escribir " El numero supera el limite."
+	FinSi
+FinAlgoritmo
