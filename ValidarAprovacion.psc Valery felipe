@@ -1,0 +1,12 @@
+Algoritmo ValidacidarAprobacion
+	Definir nota como Real ;
+	
+	Escribir " Ingrese la calificacion final obtenida (1.0 - 5.0):";
+	Leer nota;
+	
+	Si nota >= 3.0 Entonces
+		Escribir "¡ Enhorabuena! Ha aprobado satifatoriamente la asignatura.";
+	FinSi
+	
+	Escribir  " proceso de reportar de calificaciones finalizado.";
+FinAlgoritmo
