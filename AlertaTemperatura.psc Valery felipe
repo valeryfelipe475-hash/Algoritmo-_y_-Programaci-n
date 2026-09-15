@@ -1,0 +1,13 @@
+Algoritmo AlertaTemperatura
+	Definir  temp Como Real
+	
+	Escribir  " Ingrese la temperatura actual en grados Celsiuas (°C):";
+	Leer temp;
+	
+	Si temp < 0 Entonces
+		Escribir "ADVERTENCIA: Teperatura bajo cero detectada.";
+		Escribir "Riesgo de congelamiento en carreteras.";
+	FinSi
+	
+	Escribir " Registro meteorologico completo.";
+FinAlgoritmo
