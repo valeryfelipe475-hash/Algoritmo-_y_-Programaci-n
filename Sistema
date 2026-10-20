@@ -1,0 +1,53 @@
+using System;
+
+namespace Sistemas
+{
+    internal class Program
+    {
+
+        static void Main(string[] args)
+        {
+            int cantidadARCHIVOS = 0;
+            do
+            {
+                Console.WriteLine(" Ingrese la cantidad de archivos a descargar: ");
+                if (!int.TryParse(Console.ReadLine(), out cantidadARCHIVOS))
+                {
+
+                    cantidadARCHIVOS = 0;
+                }
+            } while (cantidadARCHIVOS <= 0);
+
+            int archivosDescargados = 0;
+            double totalMB = 0;
+
+            for (int i = 1; i <= cantidadARCHIVOS; i++)
+            {
+                Console.WriteLine($"\nArchivo #{i} - Nombre (Escriba 'salir' para datener): ");
+                string nombre = Console.ReadLine().Trim();
+
+                if (nombre.ToLower() == "salir")
+                {
+                    Console.WriteLine(">> proceso de descarga cancelado!!!");
+                    break;
+                }
+
+                Console.WriteLine("Tamaño en MB: ");
+                double tamanio = 0;
+                if (double.TryParse(Console.ReadLine(), out tamanio) || tamanio <= 0)
+                {
+                    Console.WriteLine(">> tamaño invalido. Archivo omitido");
+                    continue;
+
+                }
+                Console.WriteLine($">>Descargado  '{nombre}' ({tamanio} MB)... OK");
+                archivosDescargados++;
+                totalMB += tamanio;
+            }
+            Console.WriteLine("\n======= RESUMEN DE DESCARGA =======");
+            Console.WriteLine($"Archivo Descargados:{archivosDescargados}");
+            Console.WriteLine($"Total descargado: {totalMB} MB");
+            Console.WriteLine("====================================");
+        }
+    }
+}
