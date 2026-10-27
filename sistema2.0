@@ -1,0 +1,107 @@
+using System;
+
+namespace Sistemas
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int cantidadARCHIVOS = 0;
+
+            do
+            {
+                Console.WriteLine("Ingrese la cantidad de archivos a descargar:");
+
+                if (!int.TryParse(Console.ReadLine(), out cantidadARCHIVOS))
+                {
+                    cantidadARCHIVOS = 0;
+                }
+
+            } while (cantidadARCHIVOS <= 0);
+
+            // 1. Solicitar espacio disponible en disco
+            double espacioDisponible = 0;
+
+            do
+            {
+                Console.WriteLine("Ingrese el espacio total disponible en disco (MB):");
+
+                if (!double.TryParse(Console.ReadLine(), out espacioDisponible))
+                {
+                    espacioDisponible = 0;
+                }
+
+            } while (espacioDisponible <= 0);
+
+            int archivosDescargados = 0;
+            double totalMB = 0;
+
+            for (int i = 1; i <= cantidadARCHIVOS; i++)
+            {
+                Console.WriteLine($"\nArchivo #{i} - Nombre (Escriba 'salir' para detener):");
+
+                string nombre = Console.ReadLine() ?? "";
+                nombre = nombre.Trim();
+
+                if (nombre.Equals("salir", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine(">> Proceso de descarga cancelado.");
+                    break;
+                }
+
+                // 2. Validar el nombre del archivo
+                if (nombre.Length == 0 || nombre.Length > 20)
+                {
+                    Console.WriteLine(">> Nombre de archivo inválido. Omitido.");
+                    continue;
+                }
+
+                Console.WriteLine("Tamaño en MB:");
+
+                double tamanio;
+
+                if (!double.TryParse(Console.ReadLine(), out tamanio) || tamanio <= 0)
+                {
+                    Console.WriteLine(">> Tamaño inválido. Archivo omitido.");
+                    continue;
+                }
+
+                // 3. Verificar espacio disponible
+                if (tamanio > espacioDisponible)
+                {
+                    Console.WriteLine(">> Espacio insuficiente en disco. Descarga detenida.");
+                    break;
+                }
+
+                // Descontar el espacio utilizado
+                espacioDisponible -= tamanio;
+
+                Console.WriteLine($">> Descargado '{nombre}' ({tamanio} MB)... OK");
+
+                // 4. Clasificar el archivo por tamaño
+                if (tamanio < 1)
+                {
+                    Console.WriteLine("Categoría: Pequeño");
+                }
+                else if (tamanio <= 10)
+                {
+                    Console.WriteLine("Categoría: Mediano");
+                }
+                else
+                {
+                    Console.WriteLine("Categoría: Grande");
+                }
+
+                archivosDescargados++;
+                totalMB += tamanio;
+            }
+
+            // 5. Mostrar resumen
+            Console.WriteLine("\n======= RESUMEN DE DESCARGA =======");
+            Console.WriteLine($"Archivos descargados: {archivosDescargados}");
+            Console.WriteLine($"Total descargado: {totalMB} MB");
+            Console.WriteLine($"Espacio restante: {espacioDisponible} MB");
+            Console.WriteLine("===================================");
+        }
+    }
+}
